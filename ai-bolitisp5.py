@@ -68,9 +68,9 @@ def Mail(account):
 
 
 def Check(webpath, domain, email, user):
-    path=Pathweb + user+"/date/"+ webpath
-    print path
-    cmd="%s --exclude=jpg,png,gif --mode=2 --memory=125M --size=2M --delay=500 --report=%s --path=%s"%(aibolit,email,Path)
+    path=Pathweb + user+"/data/"+ webpath
+    #print path
+    cmd="php %s --exclude=jpg,png,gif --mode=2 --memory=125M --size=2M --delay=500 --report=%s --path=%s"%(aibolit,email,path)
     os.system(cmd)
 
 def main():
