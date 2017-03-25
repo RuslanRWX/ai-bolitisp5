@@ -6,14 +6,27 @@ import os
 from urllib2 import urlopen
 from xml.dom import minidom
 
+#  ISP url
 urlISP='https://ispURL:1500'
+# isp accesses, user/password 
 userISP='root'
 passwordISP='pass'
+# local isp path , default is /var/www
 Pathweb='/var/www/'
+# BILLmanager URL
 urlBill='https://billingURL'
+#Billmanager accesses , user/password
 userbill='userbilling'
 passbill='pass'
+# Ai-bolit script path 
 aibolit='/root/scripts/ai-bolit/ai-bolit.php'
+
+#ai-bolit parameters 
+skip='jpg,png,gif,jpeg,JPG,PNG,GIF,bmp,xml,zip,rar,css,avi,mov'
+mode='2'
+memory='125M'
+size='2M'
+delay='500'
 
 
 def Checkwebdomain ():
@@ -70,7 +83,7 @@ def Mail(account):
 def Check(webpath, domain, email, user):
     path=Pathweb + user+"/data/"+ webpath
     #print path
-    cmd="php %s --exclude=jpg,png,gif --mode=2 --memory=125M --size=2M --delay=500 --report=%s --path=%s"%(aibolit,email,path)
+    cmd="php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s"%(aibolit,skip,mode,memory,size,delay,email,path)
     os.system(cmd)
 
 def main():
