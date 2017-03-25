@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# Copyright (c) 2017 Ruslan Variushkin,  ruslan@host4.biz
+# Version 0.1 
  
 import sys
 import os
@@ -46,7 +47,7 @@ def Checkwebdomain ():
                             webpath=docroot.firstChild.nodeValue
                             accountBill=Account(user)
                             email=Mail(accountBill)
-                            print "Start Check, account Bill",  accountBill ,"  Domain: "+domain +"Path:  "+webpath+" Email: ", email
+                            print "Start Check, account Bill",  accountBill ,"  Domain: "+domain +" Path:  "+webpath+" Email: ", email
                             Check(webpath, domain, email, user)
                             exit (0)
                 else:
