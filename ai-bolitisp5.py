@@ -82,11 +82,13 @@ def Mail(account):
 
 
 def Check(webpath, domain, email, user):
+    if email is None:
+        return None
     MyPath=os.getcwd()
     datafile = file('skipemails.txt')
     for line in datafile:
         if email in line:
-            pass
+            return None
         else:
             path=Pathweb + user+"/data/"+ webpath
             #print path
