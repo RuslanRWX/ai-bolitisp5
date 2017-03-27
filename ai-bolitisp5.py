@@ -82,10 +82,16 @@ def Mail(account):
 
 
 def Check(webpath, domain, email, user):
-    path=Pathweb + user+"/data/"+ webpath
-    #print path
-    cmd="php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s"%(aibolit,skip,mode,memory,size,delay,email,path)
-    os.system(cmd)
+    MyPath=os.getcwd()
+    datafile = file('skipemails.txt')
+    for line in datafile:
+        if email in line:
+            pass
+        else:
+            path=Pathweb + user+"/data/"+ webpath
+            #print path
+            cmd="php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s"%(aibolit,skip,mode,memory,size,delay,email,path)
+            os.system(cmd)
 
 def main():
     Checkwebdomain()
