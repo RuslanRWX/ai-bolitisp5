@@ -21,7 +21,8 @@ userbill='userbilling'
 passbill='pass'
 # Ai-bolit script path 
 aibolit='/root/scripts/ai-bolit/ai-bolit.php'
-
+# path file of the skipe emails 
+skipfile="/root/scripts/ai-bolitisp5/skipemails.txt"
 #ai-bolit parameters 
 skip='jpg,png,gif,jpeg,JPG,PNG,GIF,bmp,xml,zip,rar,css,avi,mov'
 mode='2'
@@ -85,7 +86,7 @@ def Check(webpath, domain, email, user):
     if email is None:
         return None
     MyPath=os.getcwd()
-    datafile = file('skipemails.txt')
+    datafile = file(skipfile)
     for line in datafile:
         if email in line:
             return None
