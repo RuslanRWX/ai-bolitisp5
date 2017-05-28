@@ -34,6 +34,7 @@ reportfile = "/tmp/ai-bolit-report.html"
 # work tmp file
 wtf = "/tmp/ai-bolit.log"
 # mail 
+Subject = "INFO"
 serverport = "example.com:587"
 username = "info@example.com"
 password = "pass"
@@ -96,7 +97,7 @@ def sendmail(email):
     with open(fname, "r") as myfile:
         html=myfile.read()
     msg = MIMEMultipart('utf-8') 
-    msg['Subject'] = 'The contents of'
+    msg['Subject'] = Subject
     msg['From'] = me
     msg['To'] = email
     part1 = MIMEText(html, 'html')
