@@ -92,20 +92,19 @@ def sendmail(email):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
-    me = "info@host4.biz"
     fname = "/tmp/ai-bolit_report.html"
     with open(fname, "r") as myfile:
         html=myfile.read()
     msg = MIMEMultipart('utf-8') 
     msg['Subject'] = Subject
-    msg['From'] = me
+    msg['From'] = username
     msg['To'] = email
     part1 = MIMEText(html, 'html')
     msg.attach(part1)
     s = smtplib.SMTP(serverport)
     s.starttls()
     s.login(username,password)
-    s.sendmail(me, email, msg.as_string())
+    s.sendmail(username, email, msg.as_string())
     s.quit()
     
 
