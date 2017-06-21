@@ -15,9 +15,9 @@ mgr5back - программка для бэкапирования виртуал
 <br>4.1 cat config.ini
 
 ##############################################
-# Main config for mgr5backup.py
-[main]
-# ID vmmanager of your node
+<br><b3>Main config for mgr5backup.py<b3>
+<br>[main]
+<br>\#ID vmmanager of your node
 NodeID: 2
 #exclude the virtual machines which should not be backup.
 # example NoBackupID='51,12' - ids are separeted by commas.
