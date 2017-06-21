@@ -53,7 +53,6 @@ def Checkwebdomain():
                 user = owner.firstChild.nodeValue
                 if len(sys.argv) > 1:
                     if user == sys.argv[1]:
-                        # print user
                         for docroot in node.getElementsByTagName('docroot'):
                             webpath = docroot.firstChild.nodeValue
                             accountBill = Account(user)
