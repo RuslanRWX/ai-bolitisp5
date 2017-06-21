@@ -20,7 +20,7 @@ urlBill = 'https://billingURL'
 userbill = 'userbilling'
 passbill = 'pass'
 # Ai-bolit script path
-aibolit = '/root/scripts/ai-bolit/ai-bolit.php'
+aibolit = '/root/scripts/ai-bolit/ai-bolit/ai-bolit-hoster.php'
 # path file of the skipe emails
 skipfile = "/root/scripts/ai-bolitisp5/skipemails.txt"
 # ai-bolit parameters
@@ -52,22 +52,14 @@ def Checkwebdomain():
             for owner in node.getElementsByTagName('owner'):
                 user = owner.firstChild.nodeValue
                 if len(sys.argv) > 1:
-                    if user == sys.argv[1]:
-                        # print user
-                        for docroot in node.getElementsByTagName('docroot'):
-                            webpath = docroot.firstChild.nodeValue
-                            accountBill = Account(user)
-                            email = Mail(accountBill)
-                            print "Start Check, account Bill",  accountBill, "  Domain: " + domain + " Path:  " + webpath + " Email: ", email
-                            Check(webpath, domain, email, user)
-                            exit(0)
-                else:
                     for docroot in node.getElementsByTagName('docroot'):
                         webpath = docroot.firstChild.nodeValue
                         accountBill = Account(user)
                         email = Mail(accountBill)
-                        print "Start Check, account Bill",  accountBill, "  Domain: " + domain + "Path:  " + webpath + " Email: ", email
+                        print "Start Check, account Bill",  accountBill, "  Domain: " + domain + " Path:  " + webpath + " Email: ", email
                         Check(webpath, domain, email, user)
+                    if user == sys.argv[1]:
+                        return
 
 
 def Account(user):
