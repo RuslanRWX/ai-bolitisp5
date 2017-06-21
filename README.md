@@ -18,15 +18,15 @@ mgr5back - программка для бэкапирования виртуал
 <br><b3>Main config for mgr5backup.py<b3>
 <br>[main]
 <br>\#ID vmmanager of your node
-NodeID: 2
-#exclude the virtual machines which should not be backup.
-# example NoBackupID='51,12' - ids are separeted by commas.
-NoBackupID: 167,173
-# Connect to ftp server via the vmmgr-backup storage.
-ftp_conn: /usr/local/mgr5/etc/.vmmgr-backup/storages/st_3
-# Pidfile
-pidfile: /tmp/mgr5back.pid
-# Backup directory
+<br>NodeID: 2
+<br>\#exclude the virtual machines which should not be backup.
+<br>\# example NoBackupID='51,12' - ids are separeted by commas.
+<br>NoBackupID: 167,173
+<br>\# Connect to ftp server via the vmmgr-backup storage.
+<br>ftp_conn: /usr/local/mgr5/etc/.vmmgr-backup/storages/st_3
+<br>\# Pidfile
+<br>pidfile: /tmp/mgr5back.pid
+<br>\# Backup directory
 BackDir: /backup
 # Connect to database via the vmmgr config file
 #FileDB: /usr/local/mgr5/etc/vmmgr.conf.d/db.conf
