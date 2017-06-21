@@ -2,17 +2,17 @@
 mgr5back - программка для бэкапирования виртуальных машин программного продукта ISP VMmanager 5 
 
 Развертывание 
-git clone https://github.com/ruslansvs2/mgr5back.git
-Описание содержимого в каталоге 
-2.1 cd mgr5backup; ls -al 
-2.2 файлы
+<br>git clone https://github.com/ruslansvs2/mgr5back.git
+<br>Описание содержимого в каталоге 
+<br>2.1 cd mgr5backup; ls -al 
+<br>2.2 файлы
       config.ini  - конфигурационный файл 
       mgr5backup.py - скрипт бекапа 
       README.md - файл readme 
-Установка модулей 
-3.1 Актуальная установка модулей описана в файле README.md 
-Конфигурация config.ini 
-4.1 cat config.ini
+<br>Установка модулей 
+<br>3.1 Актуальная установка модулей описана в файле README.md 
+<br>Конфигурация config.ini 
+<br>4.1 cat config.ini
 
 ##############################################
 # Main config for mgr5backup.py
