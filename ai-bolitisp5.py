@@ -99,8 +99,7 @@ def sendmail(email):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
-    fname = "/tmp/ai-bolit_report.html"
-    with open(fname, "r") as myfile:
+    with open(reportfile, "r") as myfile:
         html = myfile.read()
     msg = MIMEMultipart('utf-8')
     msg['Subject'] = Subject
@@ -128,7 +127,7 @@ def Check(webpath, domain, email, user):
             cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s > %s" % (
                 aibolit, skip, mode, memory, size, delay, reportfile, path, wtf)
             os.system(cmd)
-            with open('/tmp/ai-bolit.log') as f:
+            with open(wtf) as f:
                 last = None
                 for line in (line for line in f if line.rstrip('\n')):
                     last = line
