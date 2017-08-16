@@ -101,11 +101,11 @@ def sendmail(email):
     from email.mime.text import MIMEText
     with open(reportfile, "r") as myfile:
         html = myfile.read()
-    msg = MIMEMultipart('utf-8')
+    msg = MIMEMultipart('alternative')
     msg['Subject'] = Subject
     msg['From'] = username
     msg['To'] = email
-    part1 = MIMEText(html, 'html')
+    part1 = MIMEText(html, 'html', 'utf-8')
     msg.attach(part1)
     s = smtplib.SMTP(serverport)
     s.starttls()
