@@ -101,7 +101,7 @@ def sendmail(email):
 
 def Check(webpath, email, user, lang):
     if lang == "en":
-        lang = "--eng"
+        lang = "eng"
     else:
         lang = ""
     if email is None:
