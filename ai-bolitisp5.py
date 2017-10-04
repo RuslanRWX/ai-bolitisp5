@@ -8,6 +8,8 @@ from urllib2 import urlopen
 from xml.dom import minidom
 import config
 from config import *
+from shutil import copyfile
+path=os.getcwd()
 
 
 def Checkwebdomain():
@@ -102,8 +104,10 @@ def sendmail(email):
 def Check(webpath, email, user, lang):
     if lang == "en":
         lang = "eng"
+        design_path = path +"/ai-design.html.eng"
     else:
-        lang = ""
+        lang = "ru"
+        design_path = path + "/ai-design.html.ru"
     if email is None:
         return None
     datafile = file(skipfile)
@@ -115,6 +119,7 @@ def Check(webpath, email, user, lang):
             # print path
             cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
+            copyfile(design_path, aibolit_path)
             os.system(cmd)
             with open(wtf) as f:
                 last = None
