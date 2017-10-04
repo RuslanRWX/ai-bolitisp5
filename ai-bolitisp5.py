@@ -119,7 +119,7 @@ def Check(webpath, email, user, lang):
             # print path
             cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
-            copyfile(design_path, aibolit_path+"ai-design.html")
+            copyfile(design_path, aibolit_path+"/ai-design.html")
             os.system(cmd)
             with open(wtf) as f:
                 last = None
