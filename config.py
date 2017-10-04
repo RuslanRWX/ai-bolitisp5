@@ -27,7 +27,8 @@ reportfile = "/tmp/ai-bolit-report.html"
 # work tmp file
 wtf = "/tmp/ai-bolit.log"
 # mail
-Subject = "INFO"
+SubjectEng="INFO"
+SubjectRus="INFO"
 serverport = "example.com:587"
 username = "info@example.com"
 password = "pass"

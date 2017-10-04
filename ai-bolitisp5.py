@@ -81,14 +81,17 @@ def Lang(id):
 
 
 
-def sendmail(email):
+def sendmail(email, lang):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     with open(reportfile, "r") as myfile:
         html = myfile.read()
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = Subject
+    if lang == "eng":
+        msg['Subject'] = SubjectEng
+    if lang == "ru":
+        msg['Subject'] = SubjectRus
     msg['From'] = username
     msg['To'] = email
     part1 = MIMEText(html, 'html', 'utf-8')
@@ -127,7 +130,7 @@ def Check(webpath, email, user, lang):
                     last = line
             code = last.split()
             if int(code[2]) == 2:
-                sendmail(email)
+                sendmail(email, lang)
             else:
                 pass
 
