@@ -8,7 +8,6 @@ from urllib2 import urlopen
 from xml.dom import minidom
 import config
 from config import *
-import MySQLdb
 
 
 def Checkwebdomain():
@@ -17,14 +16,15 @@ def Checkwebdomain():
         for docroot in node.getElementsByTagName('docroot'):
             webpath = docroot.firstChild.nodeValue
             accountBill = Account(user)
-            email = Mail(accountBill)
-            lang = Lang(accountBill)
+            email = User(accountBill, search="email")
+            id = User(accountBill, search="account_id")
+            lang = Lang(id)
             print "Start Check, account Bill", accountBill, \
                   " Domain: "  + domain + \
                   " Path:  " + webpath + \
                   " Email: ", email + \
                   " Lang: ", lang
-            #Check(webpath, email, user)
+            Check(webpath, email, user, lang)
 
     URLISP = urlISP + "/ispmgr?authinfo=" + userISP + \
         ":" + passwordISP + "&func=webdomain&out=xml"
@@ -56,7 +56,8 @@ def Account(user):
                     return account.firstChild.nodeValue
 
 
-def Mail(account):
+
+def User(account,search):
     URLBILL = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=user&out=xml"
     res = urlopen(URLBILL)
@@ -64,21 +65,18 @@ def Mail(account):
     for node in xmldoc.getElementsByTagName('elem'):
         for accountBill in node.getElementsByTagName('account'):
             if accountBill.firstChild.nodeValue == account:
-                # print accountBill.firstChild.nodeValue, " compare with  ",
-                # account
-                for email in node.getElementsByTagName('email'):
-                    return email.firstChild.nodeValue
+                if search == "email":
+                    for email in node.getElementsByTagName('email'):
+                        return email.firstChild.nodeValue
+                if search == "account_id":
+                    for account_id in node.getElementsByTagName('account_id'):
+                        return account_id.firstChild.nodeValue
 
-def Lang(name):
-    db = MySQLdb.connect(host=billhost,
-                     user=mysqluser,
-                     passwd=mysqlpass,
-                     db=mysqldb)
-    cur = db.cursor()
-    cur.execute("SELECT language where name="+name+" from user;")
-    db.close()
-    for user in cur.fetchall():
-         return user[0]
+def Lang(id):
+    URLBILL = urlBill + "/lang.php?id="+str(id)
+    query= urlopen(URLBILL)
+    result = query.read()
+    return result
 
 
 
@@ -101,7 +99,11 @@ def sendmail(email):
     s.quit()
 
 
-def Check(webpath, email, user):
+def Check(webpath, email, user, lang):
+    if lang == "en":
+        lang = "--eng"
+    else:
+        lang = ""
     if email is None:
         return None
     datafile = file(skipfile)
@@ -111,8 +113,8 @@ def Check(webpath, email, user):
         else:
             path = Pathweb + user + "/data/" + webpath
             # print path
-            cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s > %s" % (
-                aibolit, skip, mode, memory, size, delay, reportfile, path, wtf)
+            cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s lang=%s > %s" % (
+                aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             os.system(cmd)
             with open(wtf) as f:
                 last = None
