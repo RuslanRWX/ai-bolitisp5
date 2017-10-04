@@ -92,7 +92,7 @@ def sendmail(email, lang):
         msg['Subject'] = SubjectEng
     if lang == "ru":
         msg['Subject'] = SubjectRus
-    msg['From'] = username
+    msg['From'] = headerfrom
     msg['To'] = email
     part1 = MIMEText(html, 'html', 'utf-8')
     msg.attach(part1)
