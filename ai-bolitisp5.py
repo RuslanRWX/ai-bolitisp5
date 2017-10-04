@@ -113,7 +113,7 @@ def Check(webpath, email, user, lang):
         else:
             path = Pathweb + user + "/data/" + webpath
             # print path
-            cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s lang=%s > %s" % (
+            cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             os.system(cmd)
             with open(wtf) as f:
