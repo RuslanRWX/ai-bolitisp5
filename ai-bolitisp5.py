@@ -8,6 +8,7 @@ from urllib2 import urlopen
 from xml.dom import minidom
 import config
 from config import *
+import MySQLdb
 
 
 def Checkwebdomain():
@@ -17,11 +18,13 @@ def Checkwebdomain():
             webpath = docroot.firstChild.nodeValue
             accountBill = Account(user)
             email = Mail(accountBill)
+            lang = Lang(accountBill)
             print "Start Check, account Bill", accountBill, \
                   " Domain: "  + domain + \
                   " Path:  " + webpath + \
-                  " Email: ", email
-            Check(webpath, domain, email, user)
+                  " Email: ", email + \
+                  " Lang: ", lang
+            #Check(webpath, email, user)
 
     URLISP = urlISP + "/ispmgr?authinfo=" + userISP + \
         ":" + passwordISP + "&func=webdomain&out=xml"
@@ -37,8 +40,6 @@ def Checkwebdomain():
                     if user == sys.argv[1]:
                         print_user()
                         return
-                    else:
-                        print "No such user"
                 else:
                     print_user()
 
@@ -68,6 +69,18 @@ def Mail(account):
                 for email in node.getElementsByTagName('email'):
                     return email.firstChild.nodeValue
 
+def Lang(name):
+    db = MySQLdb.connect(host=billhost,
+                     user=mysqluser,
+                     passwd=mysqlpass,
+                     db=mysqldb)
+    cur = db.cursor()
+    cur.execute("SELECT language where name="+name+" from user;")
+    db.close()
+    for user in cur.fetchall():
+         return user[0]
+
+
 
 def sendmail(email):
     import smtplib
@@ -88,7 +101,7 @@ def sendmail(email):
     s.quit()
 
 
-def Check(webpath, domain, email, user):
+def Check(webpath, email, user):
     if email is None:
         return None
     datafile = file(skipfile)
@@ -110,6 +123,8 @@ def Check(webpath, domain, email, user):
                 sendmail(email)
             else:
                 pass
+
+
 
 
 def main():
