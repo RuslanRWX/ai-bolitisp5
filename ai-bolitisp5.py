@@ -9,7 +9,6 @@ from xml.dom import minidom
 import config
 from config import *
 from shutil import copyfile
-path=os.getcwd()
 
 
 def Checkwebdomain():
@@ -102,6 +101,7 @@ def sendmail(email):
 
 
 def Check(webpath, email, user, lang):
+    path=os.getcwd()
     if lang == "en":
         lang = "eng"
         design_path = path +"/ai-design.html.eng"
