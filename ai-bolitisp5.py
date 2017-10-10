@@ -44,7 +44,6 @@ def Checkwebdomain():
         #  print node.getElementsByTagName('name')
         for name in node.getElementsByTagName('name'):
             name_isp = name.firstChild.nodeValue
-            print name_isp
             if len(sys.argv) > 1:
                 if name_isp == sys.argv[1]:
                     print_user()
