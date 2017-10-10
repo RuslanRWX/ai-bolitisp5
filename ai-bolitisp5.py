@@ -27,7 +27,7 @@ def Checkwebdomain():
         id = User(accountBill, search="account_id")
         lang = Lang(id)
         if email is None:
-            text = "error not email user:{user}".format(user=name_isp)
+            text = "error not email user:{user}\n".format(user=name_isp)
             log(text)
             return
         print "Start Check, account Bill", accountBill, \
@@ -125,7 +125,7 @@ def Check(webpath, email, user, lang):
         else:
             path = Pathweb + webpath
             try:
-                os.stat(path)
+                os.path.isdir(path)
             except:
                 return
             cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
