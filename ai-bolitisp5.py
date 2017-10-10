@@ -34,7 +34,7 @@ def Checkwebdomain():
               " Path:  " + webpath + \
               " Email: ", email + \
               " Lang: ", lang
-      #  Check(webpath, email, user_isp, lang)
+        Check(webpath, email, user_isp, lang)
 
     URLISP = urlISP + "/ispmgr?authinfo=" + userISP + \
         ":" + passwordISP + "&func=user&out=xml"
@@ -121,7 +121,7 @@ def Check(webpath, email, user, lang):
     datafile = file(skipfile)
     for line in datafile:
         if email in line:
-            return 
+            return
         else:
             path = Pathweb + webpath
             try:
