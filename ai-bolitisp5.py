@@ -21,37 +21,35 @@ def log(text):
 def Checkwebdomain():
 
     def print_user():
-        for docroot in node.getElementsByTagName('docroot'):
-            webpath = docroot.firstChild.nodeValue
-            accountBill = Account(user)
-            email = User(accountBill, search="email")
-            id = User(accountBill, search="account_id")
-            lang = Lang(id)
-            if email or lang == "":
-                return
-            print "Start Check, account Bill", accountBill, \
-                  " Domain: "  + domain + \
-                  " Path:  " + webpath + \
-                  " Email: ", email + \
-                  " Lang: ", lang
-            Check(webpath, email, user, lang)
+        webpath = "/var/www/"+name_isp+"/data/www"
+        accountBill = Account(name_isp)
+        email = User(accountBill, search="email")
+        id = User(accountBill, search="account_id")
+        lang = Lang(id)
+        print "Start Check, account Bill", str(accountBill), \
+              " Path:  " + str(webpath) + \
+              " Email: ", str(email) + \
+              " Lang: ", str(lang)
+        if email is None:
+            text = "error not email user:{user}".format(user=name_isp)
+            log(text)
+            return
+        Check(webpath, email, user_isp, lang)
 
     URLISP = urlISP + "/ispmgr?authinfo=" + userISP + \
-        ":" + passwordISP + "&func=webdomain&out=xml"
+        ":" + passwordISP + "&func=user&out=xml"
     res = urlopen(URLISP)
     xmldoc = minidom.parse(res)
     for node in xmldoc.getElementsByTagName('elem'):
         #  print node.getElementsByTagName('name')
         for name in node.getElementsByTagName('name'):
-            domain = name.firstChild.nodeValue
-            for owner in node.getElementsByTagName('owner'):
-                user = owner.firstChild.nodeValue
-                if len(sys.argv) > 1:
-                    if user == sys.argv[1]:
-                        print_user()
-                        return
-                else:
+            name_isp = name.firstChild.nodeValue
+            if len(sys.argv) > 1:
+                if name_isp == sys.argv[1]:
                     print_user()
+                    return
+            else:
+                print_user()
 
 
 def Account(user):
