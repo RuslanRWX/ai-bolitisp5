@@ -9,6 +9,13 @@ from xml.dom import minidom
 import config
 from config import *
 from shutil import copyfile
+from time import gmtime, strftime
+
+
+def log(text):
+    logf = open(logfile, "a")
+    logf.write(text)
+    logf.close()
 
 
 def Checkwebdomain():
@@ -124,12 +131,16 @@ def Check(webpath, email, user, lang):
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             copyfile(design_path, aibolit_path+"/ai-design.html")
             os.system(cmd)
+            text = "Send mail to {user}, email:{email}, date:{date}\n".format(user=user, \
+                                                               email=email, \
+                                                               date=date)
             with open(wtf) as f:
                 last = None
                 for line in (line for line in f if line.rstrip('\n')):
                     last = line
             code = last.split()
             if int(code[2]) == 2:
+                log(text)
                 sendmail(email, lang)
             else:
                 pass
@@ -142,4 +153,7 @@ def main():
 
 
 if __name__ == "__main__":
+    date=strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    text = "\nStart check {date}\n".format(date=date)
+    log(text)
     main()

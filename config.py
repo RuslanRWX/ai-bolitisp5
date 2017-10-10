@@ -33,3 +33,5 @@ serverport = "example.com:587"
 username = "info@example.com"
 headerfrom = "info info@example.com"
 password = "pass"
+# log
+logfile = "/var/log/ai-bolitisp.log"
