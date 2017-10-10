@@ -10,7 +10,7 @@ import config
 from config import *
 from shutil import copyfile
 from time import gmtime, strftime
-
+import re
 
 def log(text):
     logf = open(logfile, "a")
@@ -120,7 +120,7 @@ def Check(webpath, email, user, lang):
         design_path = path + "/ai-design.html.ru"
     datafile = file(skipfile)
     for line in datafile:
-        if email in line or line == "":
+        if email in line or re.match(r'^\s*$', line):
             return
         else:
             path = Pathweb + webpath
