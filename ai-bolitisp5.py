@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Copyright (c) 2017 Ruslan Variushkin,  ruslan@host4.biz
-# Version 0.1
+# Version 0.2
 
 import sys
 import os
@@ -131,6 +131,7 @@ def Check(webpath, email, user, lang):
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             copyfile(design_path, aibolit_path+"/ai-design.html")
             os.system(cmd)
+            date = strftime("%Y-%m-%d %H:%M:%S")
             text = "{date} Found malware on account:{user}  sent email to:{email} path:{path} lang:{lang} \n".format(user=user, \
                                                                                                         email=email, \
                                                                                                         date=date, \
@@ -155,7 +156,7 @@ def main():
 
 
 if __name__ == "__main__":
-    date=strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    date=strftime("%Y-%m-%d %H:%M:%S")
     text = "\nStart check {date}\n".format(date=date)
     log(text)
     main()
