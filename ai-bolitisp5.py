@@ -131,9 +131,10 @@ def Check(webpath, email, user, lang):
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             copyfile(design_path, aibolit_path+"/ai-design.html")
             os.system(cmd)
-            text = "Send mail to {user}, email:{email}, date:{date}\n".format(user=user, \
-                                                               email=email, \
-                                                               date=date)
+            text = "{date} Found malware on account:{user}  sent email to:{email} path:{path}\n".format(user=user, \
+                                                                                                        email=email, \
+                                                                                                        date=date, \
+                                                                                                        path=path)
             with open(wtf) as f:
                 last = None
                 for line in (line for line in f if line.rstrip('\n')):
