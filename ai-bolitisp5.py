@@ -21,20 +21,20 @@ def log(text):
 def Checkwebdomain():
 
     def print_user():
-        webpath = "/var/www/"+name_isp+"/data/www"
+        webpath = name_isp+"/data/www"
         accountBill = Account(name_isp)
         email = User(accountBill, search="email")
         id = User(accountBill, search="account_id")
         lang = Lang(id)
-        print "Start Check, account Bill", str(accountBill), \
-              " Path:  " + str(webpath) + \
-              " Email: ", str(email) + \
-              " Lang: ", str(lang)
         if email is None:
             text = "error not email user:{user}".format(user=name_isp)
             log(text)
             return
-        Check(webpath, email, user_isp, lang)
+        print "Start Check, account Bill", accountBill, \
+              " Path:  " + webpath + \
+              " Email: ", email + \
+              " Lang: ", lang
+      #  Check(webpath, email, user_isp, lang)
 
     URLISP = urlISP + "/ispmgr?authinfo=" + userISP + \
         ":" + passwordISP + "&func=user&out=xml"
