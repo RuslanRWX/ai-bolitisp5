@@ -44,6 +44,7 @@ def Checkwebdomain():
         #  print node.getElementsByTagName('name')
         for name in node.getElementsByTagName('name'):
             name_isp = name.firstChild.nodeValue
+            print name_isp
             if len(sys.argv) > 1:
                 if name_isp == sys.argv[1]:
                     print_user()
@@ -120,7 +121,7 @@ def Check(webpath, email, user, lang):
         design_path = path + "/ai-design.html.ru"
     datafile = file(skipfile)
     for line in datafile:
-        if email in line:
+        if email in line or line == "":
             return
         else:
             path = Pathweb + webpath
