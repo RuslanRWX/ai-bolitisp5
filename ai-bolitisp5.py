@@ -118,15 +118,16 @@ def Check(webpath, email, user, lang):
     else:
         lang = "ru"
         design_path = path + "/ai-design.html.ru"
-    if email is None:
-        return None
     datafile = file(skipfile)
     for line in datafile:
         if email in line:
-            return None
+            return 
         else:
-            path = Pathweb + user + "/data/" + webpath
-            # print path
+            path = Pathweb + webpath
+            try:
+                os.stat(path)
+            except:
+                return
             cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
                 aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
             copyfile(design_path, aibolit_path+"/ai-design.html")
