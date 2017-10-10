@@ -27,6 +27,8 @@ def Checkwebdomain():
             email = User(accountBill, search="email")
             id = User(accountBill, search="account_id")
             lang = Lang(id)
+            if email or lang == "":
+                return
             print "Start Check, account Bill", accountBill, \
                   " Domain: "  + domain + \
                   " Path:  " + webpath + \
