@@ -12,6 +12,7 @@ from shutil import copyfile
 from time import gmtime, strftime
 import re
 
+
 def log(text):
     logf = open(logfile, "a")
     logf.write(text)
