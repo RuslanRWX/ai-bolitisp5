@@ -151,8 +151,6 @@ def Check(webpath, email, user, lang):
                 pass
 
 
-
-
 def main():
     Checkwebdomain()
 
