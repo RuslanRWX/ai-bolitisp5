@@ -10,5 +10,4 @@ while($result = mysqli_fetch_array($query))
 {
 	  echo $result["language"];
 }
-
 ?>
