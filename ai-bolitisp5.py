@@ -121,34 +121,33 @@ def Check(webpath, email, user, lang):
         design_path = path + "/ai-design.html.ru"
     datafile = file(skipfile)
     for line in datafile:
-        if email in line or re.match(r'^\s*$', line):
+        if email in line:
             return
-        else:
-            path = Pathweb + webpath
-            try:
-                os.path.isdir(path)
-            except:
-                return
-            cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
-                aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
-            copyfile(design_path, aibolit_path+"/ai-design.html")
-            os.system(cmd)
-            date = strftime("%Y-%m-%d %H:%M:%S")
-            text = "{date} Found malware on account:{user}  sent email to:{email} path:{path} lang:{lang} \n".format(user=user, \
-                                                                                                        email=email, \
-                                                                                                        date=date, \
-                                                                                                        path=path, \
-                                                                                                        lang=lang )
-            with open(wtf) as f:
-                last = None
-                for line in (line for line in f if line.rstrip('\n')):
-                    last = line
-            code = last.split()
-            if int(code[2]) == 2:
-                log(text)
-                sendmail(email, lang)
-            else:
-                pass
+    path = Pathweb + webpath
+    try:
+        os.path.isdir(path)
+    except:
+        return
+    cmd = "php %s --skip=%s --mode=%s --memory=%s --size=%s --delay=%s --report=%s --path=%s --%s > %s" % (
+        aibolit, skip, mode, memory, size, delay, reportfile, path, lang, wtf)
+    copyfile(design_path, aibolit_path+"/ai-design.html")
+    os.system(cmd)
+    date = strftime("%Y-%m-%d %H:%M:%S")
+    text = "{date} Found malware on account:{user}  sent email to:{email} path:{path} lang:{lang} \n".format(user=user, \
+                                                                                                email=email, \
+                                                                                                date=date, \
+                                                                                                path=path, \
+                                                                                                lang=lang )
+    with open(wtf) as f:
+        last = None
+        for line in (line for line in f if line.rstrip('\n')):
+            last = line
+    code = last.split()
+    if int(code[2]) == 2:
+        log(text)
+        sendmail(email, lang)
+    else:
+        pass
 
 
 def main():
@@ -160,3 +159,6 @@ if __name__ == "__main__":
     text = "\nStart check {date}\n".format(date=date)
     log(text)
     main()
+    date=strftime("%Y-%m-%d %H:%M:%S")
+    text = "\nStop check {date}\n".format(date=date)
+    log(text)
