@@ -11,6 +11,8 @@ from config import *
 from shutil import copyfile
 from time import gmtime, strftime
 import re
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def log(text):
@@ -112,7 +114,7 @@ def sendmail(email, lang):
 
 
 def Check(webpath, email, user, lang):
-    path=os.getcwd()
+    path=MainPath
     if lang == "en":
         lang = "eng"
         design_path = path +"/ai-design.html.eng"

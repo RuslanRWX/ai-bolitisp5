@@ -14,6 +14,8 @@ passbill = 'pass'
 # Ai-bolit script path
 aibolit_path = '/root/scripts/ai-bolit/ai-bolit/'
 aibolit = '/root/scripts/ai-bolit/ai-bolit.php'
+# Main directory
+MainPath = "/root/scripts/ai-bolitisp5/"
 # path file of the skipe emails
 skipfile = "/root/scripts/ai-bolitisp5/skipemails.txt"
 # ai-bolit parameters
