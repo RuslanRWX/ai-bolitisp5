@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Copyright (c) 2017 Ruslan Variushkin,  ruslan@host4.biz
-# Version 0.2
+# Version 0.3
 
 import sys
 import os
@@ -11,14 +11,28 @@ from config import *
 from shutil import copyfile
 from time import gmtime, strftime
 import re
+import urllib2,cookielib
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
+hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
 
 
 def log(text):
     logf = open(logfile, "a")
     logf.write(text)
     logf.close()
+
+def request_http(query):
+    result = urllib2.Request(query, headers=hdr)
+    result_api = urlopen(result)
+    return  minidom.parse(result_api)
 
 
 def Checkwebdomain():
@@ -56,10 +70,9 @@ def Checkwebdomain():
 
 
 def Account(user):
-    URLBILL = urlBill + "/billmgr?authinfo=" + \
+    query = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=vhost&out=xml"
-    res = urlopen(URLBILL)
-    xmldoc = minidom.parse(res)
+    xmldoc = request_http(query)
     for node in xmldoc.getElementsByTagName('elem'):
         for usernameBill in node.getElementsByTagName('username'):
             if usernameBill.firstChild.nodeValue == user:
@@ -71,8 +84,7 @@ def Account(user):
 def User(account,search):
     URLBILL = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=user&out=xml"
-    res = urlopen(URLBILL)
-    xmldoc = minidom.parse(res)
+    xmldoc = request_http(URLBILL)
     for node in xmldoc.getElementsByTagName('elem'):
         for accountBill in node.getElementsByTagName('account'):
             if accountBill.firstChild.nodeValue == account:
