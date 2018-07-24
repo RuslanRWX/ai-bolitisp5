@@ -4,7 +4,6 @@
 
 import sys
 import os
-from urllib2 import urlopen
 from xml.dom import minidom
 import config
 from config import *
@@ -12,6 +11,8 @@ from shutil import copyfile
 from time import gmtime, strftime
 import re
 import urllib2,cookielib
+from urllib2 import urlopen
+
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -29,10 +30,11 @@ def log(text):
     logf.write(text)
     logf.close()
 
+
 def request_http(query):
     result = urllib2.Request(query, headers=hdr)
     result_api = urlopen(result)
-    return  minidom.parse(result_api)
+    return minidom.parse(result_api)
 
 
 def Checkwebdomain():
