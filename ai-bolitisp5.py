@@ -4,6 +4,7 @@
 
 import sys
 import os
+from urllib2 import urlopen
 from xml.dom import minidom
 import config
 from config import *
@@ -11,8 +12,6 @@ from shutil import copyfile
 from time import gmtime, strftime
 import re
 import urllib2,cookielib
-from urllib2 import urlopen
-
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -33,8 +32,7 @@ def log(text):
 
 def request_http(query):
     result = urllib2.Request(query, headers=hdr)
-    result_api = urlopen(result)
-    return minidom.parse(result_api)
+    return  minidom.parse(urlopen(result))
 
 
 def Checkwebdomain():
@@ -74,9 +72,7 @@ def Checkwebdomain():
 def Account(user):
     query = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=vhost&out=xml"
-    result = urllib2.Request(query, headers=hdr)
-    result_api = urlopen(result)
-    xmldoc = minidom.parse(result_api)
+    xmldoc = request_http(query)
     for node in xmldoc.getElementsByTagName('elem'):
         for usernameBill in node.getElementsByTagName('username'):
             if usernameBill.firstChild.nodeValue == user:
@@ -88,9 +84,7 @@ def Account(user):
 def User(account,search):
     query = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=user&out=xml"
-    result = urllib2.Request(query, headers=hdr)
-    result_api = urlopen(result)
-    xmldoc = minidom.parse(result_api)
+    xmldoc = request_http(query)
     for node in xmldoc.getElementsByTagName('elem'):
         for accountBill in node.getElementsByTagName('account'):
             if accountBill.firstChild.nodeValue == account:
@@ -102,9 +96,10 @@ def User(account,search):
                         return account_id.firstChild.nodeValue
 
 def Lang(id):
-    URLBILL = urlBill + "/lang.php?id="+str(id)
-    query= urlopen(URLBILL)
-    result = query.read()
+    query = urlBill + "/lang.php?id="+str(id)
+    result = urllib2.Request(query, headers=hdr)
+    query_last = urlopen(result)
+    result = query_last.read()
     return result
 
 
