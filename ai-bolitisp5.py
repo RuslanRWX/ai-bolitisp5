@@ -74,7 +74,9 @@ def Checkwebdomain():
 def Account(user):
     query = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=vhost&out=xml"
-    xmldoc = request_http(query)
+    result = urllib2.Request(query, headers=hdr)
+    result_api = urlopen(result)
+    xmldoc = minidom.parse(result_api)
     for node in xmldoc.getElementsByTagName('elem'):
         for usernameBill in node.getElementsByTagName('username'):
             if usernameBill.firstChild.nodeValue == user:
@@ -84,9 +86,11 @@ def Account(user):
 
 
 def User(account,search):
-    URLBILL = urlBill + "/billmgr?authinfo=" + \
+    query = urlBill + "/billmgr?authinfo=" + \
         userbill + ":" + passbill + "&func=user&out=xml"
-    xmldoc = request_http(URLBILL)
+    result = urllib2.Request(query, headers=hdr)
+    result_api = urlopen(result)
+    xmldoc = minidom.parse(result_api)
     for node in xmldoc.getElementsByTagName('elem'):
         for accountBill in node.getElementsByTagName('account'):
             if accountBill.firstChild.nodeValue == account:
